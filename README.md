@@ -657,6 +657,158 @@ void tongptdong(int a[][100], int n)
 // Bai 7
 
 
+#include <stdio.h>
+#include <math.h>
+
+
+
+
+void NhapMaTran(int a[][100],int n)
+{
+   for(int i = 0; i < n; i++)
+      for(int j = 0; j < n; j++)
+      {
+         printf("A[%d][%d] = ", i, j);
+         scanf("%d", &a[i][j]);
+      }
+}
+void xuatmatran(int a[][100],int n){
+  for (int i=0;i<n;i++) printf("%d ",a[0][i]);
+
+  for(int j=1;j<n;j++) printf("%d ",a[j][n-1]);
+
+  for (int k=n-2;k>=0;k--) printf("%d ",a[n-1][k]);
+  for (int p=n-2;p>=1;p--) printf("%d ",a[p][0]);
+}
+void tongbien(int a[][100], int n)
+{
+    int sum=0;
+   for(int i = 0; i < n; i++)
+    {
+        sum += a[0][i];
+        sum += a[n-1][i];
+    }
+for(int i = 1; i < n - 1; i++)
+    {
+        sum += a[i][0];
+        sum += a[i][n-1];
+    }
+    printf("\n b.\nTong duong bien la: %d",sum);
+}
+int check(int a[][100],int n){
+    for (int i=0; i<n-1; i++)
+        for (int j=i+1; j<n; j++)
+            if (a[i][j]!=a[j][i])
+                return 0;
+    return 1;
+}
+
+
+
+ int main(){
+  int a[100][100];
+  int n;
+  printf("a.\n Moi ban nhap ma tran 2<=n<=100: ");
+  scanf("%d",&n);
+  while(n<2&&n>100){
+    printf("moi ban nhap lai: ");
+    scanf("%d",&n);
+  }
+  NhapMaTran(a,n);
+  printf("\n a.\n");
+  xuatmatran(a,n);
+  tongbien(a,n);
+  printf("\n c. \n");
+  if(check(a,n)==0) printf("ma tran khong doi xung");
+  else printf("ma tran doi xung");
+ }
+
+
+// Bai 8
+
+
+#include <stdio.h>
+
+void nhap(int a[100][100], int *x, int *y)
+{
+    printf("Nhap so hang, so cot: ");
+    scanf("%d%d", x, y);
+    for(int i=0; i<*x; i++)
+    {
+        for(int j=0; j<*y; j++)
+        {
+            scanf("%d", &a[i][j]);
+        }
+    }
+}
+
+void xuat(int a[100][100], int x, int y)
+{
+    for(int i=0; i<x; i++)
+    {
+        for(int j=0; j<y; j++)
+        {
+            printf("%5d ", a[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+void nhanMT(int a[100][100], int b[100][100], int c[100][100], int x, int y, int z)
+{
+    for(int i=0; i<x; i++)
+    {
+        for(int j=0; j<z; j++)
+        {
+            for(int k=0; k<y; k++)
+            {
+                c[i][j]+=a[i][k]*b[k][j];
+            }
+        }
+    }
+}
+
+void cong2mt(int a[][100], int b[][100],int d[100][100],int x,int y){
+	for(int i=0;i<x;i++){
+		for(int j=0;j<y;j++){
+			d[i][j]=a[i][j]+b[i][j];
+		}
+	}
+
+}
+
+int main()
+{
+    int a[100][100], b[100][100], c[100][100],d[100][100],ma, na, mb, nb;
+    printf("Ma Tran A: \n");
+    nhap(a, &ma, &na);
+    printf("Ma Tran B: \n");
+    nhap(b, &mb, &nb);
+    if(na!=mb)
+    {
+        printf("Ma tran khong kha tich!");
+    }
+    else
+    {
+        nhanMT(a, b, c, ma, na, nb);
+        printf("\nMa tran A%dx%d:\n",ma,na);
+        xuat(a, ma, na);
+        printf("\nMa tran B%dx%d:\n",mb,nb);
+        xuat(b, mb, nb);
+        printf("\n");
+        printf("Tich hai ma tran C%dx%d:\n",ma,nb);
+        xuat(c, ma, nb);
+    }
+    if(ma==mb&&na==nb){
+    	cong2mt(a,b,d,ma,na);
+    	printf("\nTong hai ma tran D%dx%d:\n",ma,na);
+    	xuat(d,ma,na);
+	}else printf("\n Khong thuc hien duoc cong 2 ma tran");
+
+    return 0;
+}
+
+
 
 
 
